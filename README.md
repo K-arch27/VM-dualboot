@@ -18,6 +18,15 @@ On Arch you can install them with the following command :
 ```
 pacman -S qemu-desktop libvirt edk2-ovmf dnsmasq virt-manager
 ```
+You can now enable and start libvirtd.service and its logging component virtlogd.socket
+
+You may also need to activate the default libvirt network:
+```
+systemctl enable --now libvirtd.service
+systemctl enable --now virtlogd.socket
+virsh net-autostart default
+virsh net-start default
+```
 
 ## 1. Setting up the VM
 
@@ -107,36 +116,16 @@ It should now look like this :
 ```
 linux   /@/.snapshots/1/snapshot/boot/vmlinuz-linux-zen root=UUID=2cebc8e6-54aa-4f18-b669-a509413594e0 rw rootflags=subvol=@/.snapshots/1/snapshot  loglevel=3 quiet intel_iommu=on iommu=pt vfio-pci.ids=10de:2188,10de:1aeb,10de:1aec,10de:1aed
 ```
+- run grub-mkconfig -o /boot/grub/grub.cfg
 
----
-### windows note
----
+- Load vfio Via the Initramfs
 
-Windows should detect and install a basic version of the drivers needed when booting with the passthrough but can fail to do so
+The 3.2.2 initramfs section of this Arch wiki article tells you how to proceed depending of how you make your initramfs
+https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#initramfs
 
-Happenned to me with an edited version of windows and I had to install the nvidia drivers manually without a screen (yay muscle memory) before being able to see
+- Regenerate your initramfs
 
-Boot back to your OS without Gpu passthrough ( if using udev hit both ctrl keys to control the Linux Os, then switch to tty2 with ctrl+alt+2 login and then type reboot)
-
-remove the GPU pci from the VM and put back the spice display and start it 
-
-download the drivers and extract them 
-
-make a shortcut of the installer in a corner of the desktop to be able to launch it once back in the dark
-
-test out the installer to see how it work and what keyboard key you need to use to proceed (so it can be done without seeing a mouse)
-
-turn the vm off and add back the GPU pci and remove the spice display
-
-reboot back in passthrough mode
-
-login and lauch the installer from the corner
-
-Wait a couple seconds to make sure it loaded and proceed to the installation with the test made before rebooting
-
-for Nvidia Default option is next so press Space and wait again a couple seconds, Space again to start the install and then if made properly the screen should eventually appear (5 to 10 min) 
-
----
+- 
 
 ## 4. Setting up script and service to start VM when booting the passthrough entry
 
@@ -180,3 +169,37 @@ WantedBy=multi-user.target
 - Move it to /etc/systemd/system/start_vm.service
 
 - Enable it with systemctl enable start_vm.service
+
+- Reboot choosing you passthrough entry again
+
+- Enjoy
+
+  ---
+### windows note
+---
+
+Windows should detect and install a basic version of the drivers needed when booting with the passthrough but can fail to do so
+
+Happenned to me with an edited version of windows and I had to install the nvidia drivers manually without a screen (yay muscle memory) before being able to see
+
+Boot back to your OS without Gpu passthrough ( if using udev hit both ctrl keys to control the Linux Os, then switch to tty2 with ctrl+alt+2 login and then type reboot)
+
+remove the GPU pci from the VM and put back the spice display and start it 
+
+download the drivers and extract them 
+
+make a shortcut of the installer in a corner of the desktop to be able to launch it once back in the dark
+
+test out the installer to see how it work and what keyboard key you need to use to proceed (so it can be done without seeing a mouse)
+
+turn the vm off and add back the GPU pci and remove the spice display
+
+reboot back in passthrough mode
+
+login and lauch the installer from the corner
+
+Wait a couple seconds to make sure it loaded and proceed to the installation with the test made before rebooting
+
+for Nvidia Default option is next so press Space and wait again a couple seconds, Space again to start the install and then if made properly the screen should eventually appear (5 to 10 min) 
+
+---
