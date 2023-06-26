@@ -67,7 +67,7 @@ copy this entire part from your own boot entry to a new file in /etc/grub.d/21_a
 - Then add the needed kernel parameters iommu=pt and intel_iommu=on if using intel to the linux line inside the new file
 
 ```
-linux	/@/.snapshots/1/snapshot/boot/vmlinuz-linux-zen root=UUID=2cebc8e6-54aa-4f18-b669-a509413594e0 rw rootflags=subvol=@/.snapshots/1/snapshot  loglevel=3 quiet
+linux	/@/.snapshots/1/snapshot/boot/vmlinuz-linux-zen root=UUID=2cebc8e6-54aa-4f18-b669-a509413594e0 rw rootflags=subvol=@/.snapshots/1/snapshot  loglevel=3 quiet intel_iommu=on iommu=pt
 ```
 
 ## 3. Setting up GPU passthrough
