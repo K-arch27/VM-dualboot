@@ -40,9 +40,35 @@ Choose the Ovmf firmware you need (in doubt take the base x64 one in blue)
 
 - Duplicate the entry to boot your system
 
-- Then add the needed kernel parameters in the duplicate 
+  For grub in can be found inside /boot/grub/grub.cfg after the line ### BEGIN /etc/grub.d/10_linux ###
+  
+```
+menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-2cebc8e6-54aa-4f18-b669-a509413594e0' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_gpt
+	insmod btrfs
+	set root='hd2,gpt3'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd2,gpt3 --hint-efi=hd2,gpt3 --hint-baremetal=ahci2,gpt3  2cebc8e6-54aa-4f18-b669-a509413594e0
+	else
+	  search --no-floppy --fs-uuid --set=root 2cebc8e6-54aa-4f18-b669-a509413594e0
+	fi
+	echo	'Loading Linux linux-zen ...'
+	linux	/@/.snapshots/1/snapshot/boot/vmlinuz-linux-zen root=UUID=2cebc8e6-54aa-4f18-b669-a509413594e0 rw rootflags=subvol=@/.snapshots/1/snapshot  loglevel=3 quiet
+	echo	'Loading initial ramdisk ...'
+	initrd	/@/.snapshots/1/snapshot/boot/intel-ucode.img /@/.snapshots/1/snapshot/boot/initramfs-linux-zen.img
+}
+```
+copy this entire part from your own boot entry to a new file in /etc/grub.d/21_arch_passthrough
 
 
+- Then add the needed kernel parameters iommu=pt and intel_iommu=on if using intel to the linux line inside the new file
+
+```
+linux	/@/.snapshots/1/snapshot/boot/vmlinuz-linux-zen root=UUID=2cebc8e6-54aa-4f18-b669-a509413594e0 rw rootflags=subvol=@/.snapshots/1/snapshot  loglevel=3 quiet
+```
 
 ## 3. Setting up GPU passthrough
 
