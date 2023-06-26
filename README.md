@@ -74,9 +74,39 @@ copy this entire part from your own boot entry to a new file in /etc/grub.d/21_a
 ```
 linux	/@/.snapshots/1/snapshot/boot/vmlinuz-linux-zen root=UUID=2cebc8e6-54aa-4f18-b669-a509413594e0 rw rootflags=subvol=@/.snapshots/1/snapshot  loglevel=3 quiet intel_iommu=on iommu=pt
 ```
+- run grub-mkconfig -o /boot/grub/grub.cfg
 
 ## 3. Setting up GPU passthrough
 
+- Reboot with your Newly made entry
+
+- Verify that iommu is working properly using the following bash script
+
+```
+#!/bin/bash
+shopt -s nullglob
+for g in $(find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V); do
+    echo "IOMMU Group ${g##*/}:"
+    for d in $g/devices/*; do
+        echo -e "\t$(lspci -nns ${d##*/})"
+    done;
+done;
+```
+In the result you'll need to find all the device ID that has to do with your GPU ( looks like this [10de:13c2] )
+
+in my case there was 4 pair of them
+
+- Modify /etc/grub.d/21_arch_passthrough again and now add the following to your kernel parameters :
+
+```
+ vfio-pci.ids=10de:2188,10de:1aeb,10de:1aec,10de:1aed
+```
+(Don't forget to replace the ID with the ones you got above)
+
+It should now look like this : 
+```
+linux   /@/.snapshots/1/snapshot/boot/vmlinuz-linux-zen root=UUID=2cebc8e6-54aa-4f18-b669-a509413594e0 rw rootflags=subvol=@/.snapshots/1/snapshot  loglevel=3 quiet intel_iommu=on iommu=pt vfio-pci.ids=10de:2188,10de:1aeb,10de:1aec,10de:1aed
+```
 
 ---
 ### windows note
