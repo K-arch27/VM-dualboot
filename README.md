@@ -33,10 +33,10 @@ Then proceed to the installation as normal, setup what you want inside your VM
 
 
 
-## 3. Setting up the bootloader
+## 2. Setting up the bootloader
 
 
-## 4. Setting up GPU passthrough
+## 3. Setting up GPU passthrough
 
 
 ---
@@ -69,6 +69,6 @@ for Nvidia Default option is next so press Space and wait again a couple seconds
 
 ---
 
-## 5. Setting up script to start VM when booting the passthrough entry
+## 4. Setting up script to start VM when booting the passthrough entry
 
 
