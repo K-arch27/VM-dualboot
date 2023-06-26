@@ -8,6 +8,8 @@ This will guide you into installing a VM with GPU passthrough that start automat
 ## 0. Prerequisite
 Your CPU and motherboard must support hardware virtualization and IOMMU 
 
+Enable needed virtualization options in the BIOS the setting may be called VT-d or AMD-V also Enable Intel VT-x or AMD IOMMU if the options are available.
+
 Your GPU ROM must support UEFI. (All GPUs from 2012 and later should support this)
 
 The following packages : Qemu Ovmf Libvirt Dnsmasq Virt-manager (last one is optionnal if you want a gui to make your VM)
@@ -34,6 +36,11 @@ Then proceed to the installation as normal, setup what you want inside your VM
 
 
 ## 2. Setting up the bootloader
+
+Duplicate the entry to boot your system
+
+Then add the needed kernel parameters in the duplicate 
+
 
 
 ## 3. Setting up GPU passthrough
