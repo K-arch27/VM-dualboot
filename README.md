@@ -46,11 +46,25 @@ Windows should detect and install a basic version of the drivers needed when boo
 
 Happenned to me with an edited version of windows and I had to install the nvidia drivers manually without a screen (yay muscle memory) before being able to see
 
-Boot back to your OS without
+Boot back to your OS without Gpu passthrough ( if using udev hit both ctrl keys to control the Linux Os, then switch to tty2 with ctrl+alt+2 login and then type reboot)
 
-to make it easier I downloaded the drivers and extracted them , and made a shortcut of the installer in a corner of the desktop so I could reach it with accuracy
+remove the GPU pci from the VM and put back the spice display and start it 
 
-Wait a couple seconds to make sure it loaded, Default option is next so press Space and wait again a couple seconds, Space again to start the install and then if made properly the screen should eventually appear (5 to 10 min) 
+download the drivers and extract them 
+
+make a shortcut of the installer in a corner of the desktop to be able to launch it once back in the dark
+
+test out the installer to see how it work and what keyboard key you need to use to proceed (so it can be done without seeing a mouse)
+
+turn the vm off and add back the GPU pci and remove the spice display
+
+reboot back in passthrough mode
+
+login and lauch the installer from the corner
+
+Wait a couple seconds to make sure it loaded and proceed to the installation with the test made before rebooting
+
+for Nvidia Default option is next so press Space and wait again a couple seconds, Space again to start the install and then if made properly the screen should eventually appear (5 to 10 min) 
 
 
 ## 5. Setting up script to start VM when booting the passthrough entry
