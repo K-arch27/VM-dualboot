@@ -20,7 +20,8 @@ pacman -S qemu-desktop libvirt edk2-ovmf dnsmasq virt-manager
 ```
 
 ## 1. Setting up the VM
-Setup your VM with the ovmf firmware
+
+- Setup your VM with the ovmf firmware
 
 If using Virt Manager
 
@@ -31,15 +32,15 @@ Tick the option to customise before install
 Choose the Ovmf firmware you need (in doubt take the base x64 one in blue)
 ![image](https://github.com/K-arch27/VM-dualboot/assets/98610690/1a5d397b-181c-4db7-b2f1-4886a258bfa6)
 
-Then proceed to the installation as normal, setup what you want inside your VM
+- Then proceed to the installation as normal, setup what you want inside your VM
 
 
 
 ## 2. Setting up the bootloader
 
-Duplicate the entry to boot your system
+- Duplicate the entry to boot your system
 
-Then add the needed kernel parameters in the duplicate 
+- Then add the needed kernel parameters in the duplicate 
 
 
 
