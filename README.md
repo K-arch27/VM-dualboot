@@ -81,7 +81,7 @@ for Nvidia Default option is next so press Space and wait again a couple seconds
 
 - Create a script that will start your VM and copy it to somewhere in $path (ex : /usr/local/bin/ )
 
-start-vm.sh
+start_vm.sh :
 ```
 #!/bin/bash
 
@@ -91,11 +91,31 @@ else
     echo "iommu not active, Skipping VM start"
 fi
 ```
-this will check if the kernel parameters contain the vfio-pci instruction and start the VM accordingly
+this will check if the kernel parameters contain the vfio-pci instruction and start the VM if so
 
 change "MY-VM" for the name of your VM
 
 - Give excution permission to your script
+
 ```
-chmod +x /usr/local/bin/start-vm.sh
+chmod +x /usr/local/bin/start_vm.sh
 ```
+
+- Create a new systemd service to start your script with the following :
+start_vm.service :
+
+```
+[Unit]
+Description=Start VM with iommu
+After=multi-user.target
+
+[Service]
+ExecStart=/bin/bash /usr/local/bin/start_vm
+
+[Install]
+WantedBy=multi-user.target
+```
+
+- Move it to /etc/systemd/system/start_vm.service
+
+- Enable it with systemctl enable start_vm.service
