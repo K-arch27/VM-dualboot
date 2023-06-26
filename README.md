@@ -66,6 +66,7 @@ login and lauch the installer from the corner
 Wait a couple seconds to make sure it loaded and proceed to the installation with the test made before rebooting
 
 for Nvidia Default option is next so press Space and wait again a couple seconds, Space again to start the install and then if made properly the screen should eventually appear (5 to 10 min) 
+
 ---
 
 ## 5. Setting up script to start VM when booting the passthrough entry
