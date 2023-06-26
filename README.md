@@ -6,7 +6,9 @@ This will guide you into installing a VM with GPU passthrough that start automat
 
 ## 0. Prerequisite
 Your CPU and motherboard must support hardware virtualization and IOMMU 
+
 Your GPU ROM must support UEFI. (All GPUs from 2012 and later should support this)
+
 The following packages : Qemu Ovmf Libvirt Dnsmasq Virt-manager (last one is optionnal if you want a gui to make your VM)
 
 On Arch you can install them with the following command :
