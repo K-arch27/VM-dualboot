@@ -37,6 +37,7 @@ Choose the Ovmf firmware you need (in doubt take the base x64 one in blue)
 
 
 ## 2. Setting up the bootloader
+### So we have a boot option that enable the GPU passthrough
 
 - Duplicate the entry to boot your system
 
