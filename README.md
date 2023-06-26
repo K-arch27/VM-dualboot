@@ -77,6 +77,25 @@ for Nvidia Default option is next so press Space and wait again a couple seconds
 
 ---
 
-## 4. Setting up script to start VM when booting the passthrough entry
+## 4. Setting up script and service to start VM when booting the passthrough entry
 
+- Create a script that will start your VM and copy it to somewhere in $path (ex : /usr/local/bin/ )
 
+start-vm.sh
+```
+#!/bin/bash
+
+if grep -q "vfio-pci.ids" /proc/cmdline; then
+    virsh start MY-VM
+else
+    echo "iommu not active, Skipping VM start"
+fi
+```
+this will check if the kernel parameters contain the vfio-pci instruction and start the VM accordingly
+
+change "MY-VM" for the name of your VM
+
+- Give excution permission to your script
+```
+chmod +x /usr/local/bin/start-vm.sh
+```
