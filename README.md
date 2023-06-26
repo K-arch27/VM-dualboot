@@ -128,6 +128,8 @@ https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#initramfs
 - Add the PCI devices relating to your GPU to your VM hardware
 ![image](https://github.com/K-arch27/VM-dualboot/assets/98610690/e47f6f03-a8a9-497a-9ae2-240f12a6766e)
 
+- Add Host Usb redirection for everything but mouse and keyboard
+
 - Remove all spice devices from your VM hardware
 
 - Add udev entry for mouse and keyboard
