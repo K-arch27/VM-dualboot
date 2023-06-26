@@ -39,8 +39,9 @@ Then proceed to the installation as normal, setup what you want inside your VM
 ## 4. Setting up GPU passthrough
 
 
-
+---
 ### windows note
+---
 
 Windows should detect and install a basic version of the drivers needed when booting with the passthrough but can fail to do so
 
