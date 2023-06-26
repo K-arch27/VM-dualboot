@@ -125,7 +125,17 @@ https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#initramfs
 
 - Regenerate your initramfs
 
-- 
+- Add the PCI devices relating to your GPU to your VM hardware
+![image](https://github.com/K-arch27/VM-dualboot/assets/98610690/e47f6f03-a8a9-497a-9ae2-240f12a6766e)
+
+- Remove all spice devices from your VM hardware
+
+- Add udev entry for mouse and keyboard
+
+ #### section 4.3 Attaching the PCI devices, 4.4 Video card driver virtualisation detection and 4.5 Passing keyboard/mouse via Evdev can be followed to achieve the last 2 step
+https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Attaching_the_PCI_devices
+ 
+
 
 ## 4. Setting up script and service to start VM when booting the passthrough entry
 
